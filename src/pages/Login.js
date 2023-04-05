@@ -46,24 +46,24 @@ function Login() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log("SUccessssss")
+                setIsSubmitted(true);
             })
             .catch((err) => {
-                console.log(err.message);
+                setErrorMessages({ name: "loginForm", message: errors.pass });
             });
 
 
-        const userData = database.find((user) => user.username === email.value);
+        // const userData = database.find((user) => user.username === email.value);
 
-        if (userData) {
-            if (userData.password !== pass.value) {
-                setErrorMessages({ name: "pass", message: errors.pass });
-            } else {
-                setIsSubmitted(true);
-            }
-        } else {
-            setErrorMessages({ name: "email", message: errors.email });
-        }
+        // if (userData) {
+        //     if (userData.password !== pass.value) {
+        //         setErrorMessages({ name: "pass", message: errors.pass });
+        //     } else {
+        //         setIsSubmitted(true);
+        //     }
+        // } else {
+        //     setErrorMessages({ name: "email", message: errors.email });
+        // }
     };
 
     const navigate = useNavigate();
@@ -83,7 +83,7 @@ function Login() {
     const renderForm = (
 
         <div className="form">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} name="loginForm">
                 <div className="input-container">
                     <label>Username </label>
                     <input type="text" name="email" required />
