@@ -65,3 +65,12 @@
     gap: 8px;
     margin: 10px;
   }
+
+  .users {
+    display: flex;
+    justify-content: center;
+  }
+
+  .tableHead{
+    font-weight: bold !important;
+  }

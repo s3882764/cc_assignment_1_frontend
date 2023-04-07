@@ -1,32 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, Navigate } from "react-router-dom";
+import { BeatLoader } from "react-spinners";
 
 import "./styles.css";
 
 function Login() {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
-
-    // User Login info
-    const database = [
-        {
-            username: "q",
-            password: "q"
-        },
-        {
-            username: "user2",
-            password: "pass2"
-        }
-    ];
-
-    const errors = {
-        email: "invalid username",
-        pass: "invalid password"
-    };
-
-    // const navigateToDashboard = {
-    //     useNavigate("/register")
-    // }
+    const [isLoaded, setIsLoaded] = useState(true);
 
     const handleSubmit = async (event) => {
         //Prevent page reload
@@ -34,11 +15,13 @@ function Login() {
 
         var { email, pass } = document.forms[0];
         console.log(email, pass);
+
+        setIsLoaded(false);
         await fetch('https://t5cck11g43.execute-api.us-east-1.amazonaws.com/dev/login', {
             method: 'PUT',
             body: JSON.stringify({
-                "email":email.value,
-                "password":pass.value
+                "email": email.value,
+                "password": pass.value
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -46,24 +29,19 @@ function Login() {
         })
             .then((response) => response.json())
             .then((data) => {
-                setIsSubmitted(true);
+                if(data.message !== "Login Unsuccessful"){
+                    localStorage.setItem("email", email.value);
+                    localStorage.setItem("userName", data.message.user_name)
+                    setIsSubmitted(true);
+                } else {
+                    setErrorMessages({ name: "pass", message: "Invalid username or password"});
+                }
+                setIsLoaded(true);
             })
             .catch((err) => {
-                setErrorMessages({ name: "loginForm", message: errors.pass });
+                setIsLoaded(true);
+                setErrorMessages({ name: "pass", message: "Invalid username or password" });
             });
-
-
-        // const userData = database.find((user) => user.username === email.value);
-
-        // if (userData) {
-        //     if (userData.password !== pass.value) {
-        //         setErrorMessages({ name: "pass", message: errors.pass });
-        //     } else {
-        //         setIsSubmitted(true);
-        //     }
-        // } else {
-        //     setErrorMessages({ name: "email", message: errors.email });
-        // }
     };
 
     const navigate = useNavigate();
@@ -72,20 +50,17 @@ function Login() {
         navigate("/register");
     }
 
-
-    // Generate JSX code for error message
     const renderErrorMessage = (name) =>
         name === errorMessages.name && (
             <div className="error">{errorMessages.message}</div>
         );
 
-    // JSX code for login form
     const renderForm = (
 
         <div className="form">
             <form onSubmit={handleSubmit} name="loginForm">
                 <div className="input-container">
-                    <label>Username </label>
+                    <label>Email </label>
                     <input type="text" name="email" required />
                     {renderErrorMessage("email")}
                 </div>
@@ -108,9 +83,7 @@ function Login() {
         <div className="app">
             <div className="login-form">
                 <div className="title">Login</div>
-                {isSubmitted ? <Navigate replace={true} to='/dashboard' /> : renderForm}
-                {/* {renderForm} */}
-
+                {isSubmitted ? <Navigate replace={true} to='/dashboard' /> : <>{isLoaded ? renderForm : <BeatLoader color="#36d7b7" />}</>}
             </div>
         </div>
     );
