@@ -8,11 +8,8 @@ import React from "react";
 
 const Layout = () => {
   const navigate = useNavigate();
-  // const [value, setValue] = React.useState('1');
-  // React.useEffect(() => navigate("/dashboard/User"), [])
-
-  const [value, setValue] = React.useState('3');
-  React.useEffect(() => navigate("/dashboard/query"), [])
+  const [value, setValue] = React.useState('1');
+  React.useEffect(() => navigate("/dashboard/User"), [])
 
   const handleChange = (event, newValue) => {
     console.log("newValue" + newValue)
@@ -29,23 +26,7 @@ const Layout = () => {
     }
   };
   return (
-    <>
-      {/* <nav>
-        <ul>
-          <li>
-            <Link to="/dashboard/User">User</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/Subscription">Subscription</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/Query">Query</Link>
-          </li>
-        </ul>
-      </nav> */}
-
-      
-
+    <>   
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
