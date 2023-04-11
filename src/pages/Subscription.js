@@ -111,7 +111,7 @@ const Subscription = () => {
                 <TableCell align="right">{row.artist}</TableCell>
                 <TableCell align="right">{row.yearDb}</TableCell>
                 
-                <TableCell align="right"><img height="100" width="100" src={`data:image/png;base64,`+ `https://ginbfsis8c.execute-api.us-east-1.amazonaws.com/dev/image?image=${row.title}`}/></TableCell>
+                <TableCell align="right"><img height="100" width="100" src={`https://ginbfsis8c.execute-api.us-east-1.amazonaws.com/dev/image?image=${row.title}`}/></TableCell>
                
                 {/* <TableCell align="right"><img height="100" width="100" src={`data:image/png;base64,${get_image(row.title)}`}/></TableCell> */}
                 <TableCell align="right"><button onClick={() => {

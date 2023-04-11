@@ -27,7 +27,8 @@ function Login() {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
-            .then((response) => response.json())
+            .then((response) => {response.json()
+            console.log(response)})
             .then((data) => {
                 if(data.message !== "Login Unsuccessful"){
                     localStorage.setItem("email", email.value);

@@ -94,7 +94,8 @@ const Query = () => {
         </div>
         <br></br>
       <button type="button" onClick={() => {
-                        handleSubmit()
+                        handleSubmit();
+                        setIsLoaded(false)
                     }}  id="submitBtn" className="submitBtn">submit</button>
   </form>
       <TableContainer component={Paper}>
