@@ -42,6 +42,8 @@ const Query = () => {
               if(data.music.length >0){
                 const initialState = data.music.map(obj => obj.music);
                 setRows(data.music);
+              } else if(data.music.length == 0) {
+                alert("No songs with this search")
               }
             })
             .catch((err) => {
