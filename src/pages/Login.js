@@ -30,7 +30,7 @@ function Login() {
             .then((response) => {response.json()
             console.log(response)})
             .then((data) => {
-                if(data.message !== "Login Unsuccessful" && data.message !== "Internal server error"){
+                if(data.message !== "Login Unsuccessful" || data.message !== "Internal server error"){
                     localStorage.setItem("email", email.value);
                     localStorage.setItem("userName", data.message.user_name)
                     setIsSubmitted(true);
